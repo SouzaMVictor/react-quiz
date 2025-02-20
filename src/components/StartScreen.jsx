@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function StartScreen({ numQuestions, dispatch }) {
   return (
     <div className="start">
@@ -14,3 +16,8 @@ function StartScreen({ numQuestions, dispatch }) {
 }
 
 export default StartScreen;
+
+StartScreen.propTypes = {
+  numQuestions: PropTypes.number.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};

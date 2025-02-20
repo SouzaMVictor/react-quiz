@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function Options({ question }) {
   return (
     <div className="options">
@@ -11,3 +13,8 @@ function Options({ question }) {
 }
 
 export default Options;
+Options.propTypes = {
+  question: PropTypes.shape({
+    options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
