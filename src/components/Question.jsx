@@ -13,6 +13,8 @@ Question.propTypes = {
   question: PropTypes.shape({
     question: PropTypes.string.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  answer: PropTypes.string.isRequired,
 };
 
 export default Question;
