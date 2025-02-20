@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from "react";
-import "./App.css";
 import Header from "./Header";
 import MainQuiz from "./MainQuiz";
 import StartScreen from "./StartScreen";
@@ -8,9 +7,12 @@ import Error from "./Error";
 import Question from "./Question";
 
 export function ReactQuiz() {
-  const initialState = { questions: [], status: "loading" };
+  const initialState = { questions: [], status: "loading", index: 0 };
 
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const numQuestions = questions.length;
 
@@ -45,7 +47,7 @@ export function ReactQuiz() {
         {status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {status === "active" && <Question />}
+        {status === "active" && <Question question={questions[index]} />}
       </MainQuiz>
     </div>
   );
