@@ -13,6 +13,7 @@ export function ReactQuiz() {
   const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
+
   function reducer(state, action) {
     switch (action.type) {
       case "dataReceived":
@@ -23,6 +24,8 @@ export function ReactQuiz() {
         };
       case "dataFailed":
         return { ...state, status: "error" };
+      case "start":
+        return { ...state, status: "active" };
       default:
         throw new Error("Action Unknown");
     }
@@ -39,7 +42,9 @@ export function ReactQuiz() {
       <MainQuiz>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen numQuestions={numQuestions} />}
+        {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
         {status === "active" && <Question />}
       </MainQuiz>
     </div>
