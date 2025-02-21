@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import Error from "./Error";
 import Question from "./Question";
 import NextButton from "./NextButton";
+import Progress from "./Progress";
 
 export function ReactQuiz() {
   const initialState = {
@@ -15,12 +16,16 @@ export function ReactQuiz() {
     points: 0,
   };
 
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
   const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
 
   function reducer(state, action) {
     switch (action.type) {
@@ -71,6 +76,13 @@ export function ReactQuiz() {
         )}
         {status === "active" && (
           <>
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              points={points}
+              maxPossiblePoints={maxPossiblePoints}
+              answer={answer}
+            />
             <Question
               question={questions[index]}
               dispatch={dispatch}
