@@ -7,6 +7,7 @@ import Error from "./Error";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import FinishScreen from "./FinishScreen";
 
 export function ReactQuiz() {
   const initialState = {
@@ -54,7 +55,8 @@ export function ReactQuiz() {
       }
       case "nextQuestion":
         return { ...state, index: state.index + 1, answer: null };
-
+      case "finish":
+        return { ...state, status: "finished" };
       default:
         throw new Error("Action Unknown");
     }
@@ -88,8 +90,16 @@ export function ReactQuiz() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <NextButton
+              dispatch={dispatch}
+              answer={answer}
+              numQuestions={numQuestions}
+              index={index}
+            />
           </>
+        )}
+        {status === "finished" && (
+          <FinishScreen points={points} maxPossiblePoints={maxPossiblePoints} />
         )}
       </MainQuiz>
     </div>
