@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function FinishScreen({ points, maxPossiblePoints }) {
+function FinishScreen({ points, maxPossiblePoints, highscore }) {
   const percentage = (points / maxPossiblePoints) * 100;
   let emoji;
   if (percentage === 100) emoji = "😎";
@@ -10,18 +10,20 @@ function FinishScreen({ points, maxPossiblePoints }) {
   if (percentage === 0) emoji = "😫";
 
   return (
-    <div>
+    <>
       <p className="result">
         <span>{emoji}</span>You scored <strong>{points}</strong> out of
         <strong> {maxPossiblePoints}</strong> ({Math.ceil(percentage)}%)
       </p>
-    </div>
+      <p className="highscore">(Highscore: {highscore} points)</p>
+    </>
   );
 }
 
 FinishScreen.propTypes = {
   points: PropTypes.number.isRequired,
   maxPossiblePoints: PropTypes.number.isRequired,
+  highscore: PropTypes.number.isRequired,
 };
 
 export default FinishScreen;
