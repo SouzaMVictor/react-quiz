@@ -5,6 +5,7 @@ import StartScreen from "./StartScreen";
 import Loader from "./Loader";
 import Error from "./Error";
 import Question from "./Question";
+import NextButton from "./NextButton";
 
 export function ReactQuiz() {
   const initialState = {
@@ -46,6 +47,8 @@ export function ReactQuiz() {
               : state.points,
         };
       }
+      case "nextQuestion":
+        return { ...state, index: state.index + 1, answer: null };
 
       default:
         throw new Error("Action Unknown");
@@ -67,11 +70,14 @@ export function ReactQuiz() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
-          <Question
-            question={questions[index]}
-            dispatch={dispatch}
-            answer={answer}
-          />
+          <>
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <NextButton dispatch={dispatch} answer={answer} />
+          </>
         )}
       </MainQuiz>
     </div>
