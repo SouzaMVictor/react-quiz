@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { act, useEffect, useReducer } from "react";
 import Header from "./Header";
 import MainQuiz from "./MainQuiz";
 import StartScreen from "./StartScreen";
@@ -61,6 +61,13 @@ export function ReactQuiz() {
           highscore:
             state.points > state.highscore ? state.points : state.highscore,
         };
+      case "restartQuiz":
+        return {
+          ...initialState,
+          questions: state.questions,
+          status: "ready",
+          highscore: state.highscore,
+        };
       default:
         throw new Error("Action Unknown");
     }
@@ -107,6 +114,7 @@ export function ReactQuiz() {
             points={points}
             maxPossiblePoints={maxPossiblePoints}
             highscore={highscore}
+            dispatch={dispatch}
           />
         )}
       </MainQuiz>
